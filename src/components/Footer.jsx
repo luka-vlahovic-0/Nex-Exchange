@@ -8,7 +8,7 @@ export default function Footer() {
       </p>
       <div className="flex space-x-4 p-2">
         <a 
-          href="https://github.com/luka-vlahovic-0"
+          href="https://github.com/luka-vlahovic-0/Nex-Exchange"
           target="_blank"
           rel="noopener noreferrer"
         >
