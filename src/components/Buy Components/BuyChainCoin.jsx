@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
 import { ChevronDown, ChevronUp, X } from "lucide-react";
 
-export default function BuyChainCoin({ toggleChainMenu, selectedChain, isChainMenuOpen, chainMenuRef, selectedCoin, chains, handleChainClick, handleCoinClick, coins }) {
+export default function BuyChainCoin({
+  toggleChainMenu,
+  selectedChain,
+  isChainMenuOpen,
+  chainMenuRef,
+  selectedCoin,
+  chains,
+  handleChainClick,
+  handleCoinClick,
+  coins,
+}) {
   return (
     <div
       className="bg-[#272343] p-4 rounded-2xl mb-4"

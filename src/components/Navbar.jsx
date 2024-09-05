@@ -33,7 +33,7 @@ export default function Navbar({ setShowGas, setShowSwap, setShowBuy }) {
         <img src={nexraImg} alt="Website logo" className="h-[70px] w-[100px]" />
       </div>
 
-      {/* Buttons (hidden on medium and smaller screens) */}
+      {/* Buttons */}
       <div className="hidden md:flex justify-center">
         <div className="bg-white/10 p-2 rounded-full flex space-x-16">
           <button
@@ -88,7 +88,6 @@ export default function Navbar({ setShowGas, setShowSwap, setShowBuy }) {
           textAlign="middle"
         />
 
-        {/* AlignJustify Icon for Dropdown Menu (visible on small screens) */}
         <button
           className="ml-4 md:hidden"
           onClick={() => setShowDropdown(!showDropdown)}
