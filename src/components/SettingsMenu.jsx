@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 export default function SettingsMenu({ onClose }) {
   return (
     <div className="h-[428px] w-[336px]">
-      {/* Header */}
+      
       <div className="flex justify-between items-center mb-6">
         <button className="text-gray-400 hover:text-white" onClick={onClose}>
           <ArrowLeft size={25} />
@@ -13,7 +13,7 @@ export default function SettingsMenu({ onClose }) {
         <div className="w-6"></div>
       </div>
 
-      {/* Settings Options */}
+      
       <div className="space-y-4">
         <div className="bg-[#272343] p-4 rounded-2xl flex justify-between items-center hover:bg-[#38304f] transition-colors">
           <span className="text-white">Route priority</span>

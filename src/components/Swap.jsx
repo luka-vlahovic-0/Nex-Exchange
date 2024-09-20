@@ -84,10 +84,10 @@ export default function Swap() {
   };
 
   return (
-    <div className="bg-[#0a0729] p-6 rounded-xl mx-auto w-96 mt-14 h-[465px]">
+    <div className="bg-[#0a0729] p-6 rounded-xl mx-auto w-96 mt-14 h-[465px] overflow-hidden">
       {!isSettingsMenuOpen ? (
         <>
-          {/* Header */}
+         
           <SwapHeader
             isFromTokenMenuOpen={isFromTokenMenuOpen}
             isToTokenMenuOpen={isToTokenMenuOpen}
@@ -98,7 +98,7 @@ export default function Swap() {
 
           {!isFromTokenMenuOpen && !isToTokenMenuOpen ? (
             <>
-              {/* Token Selection */}
+             
               <SwapTokenSelection
                 selectedFromChain={selectedFromChain}
                 selectedFromCoin={selectedFromCoin}
@@ -108,14 +108,14 @@ export default function Swap() {
                 toggleToTokenMenu={toggleToTokenMenu}
               />
 
-              {/* Amount Input */}
+            
               <SwapAmountSection
                 amount={amount}
                 handleAmountChange={handleAmountChange}
                 selectedFromCoin={selectedFromCoin}
               />
 
-              {/* Swap or Bridge Button */}
+              
               <SwapButton buttonText={buttonText} swapToast={swapToast} />
             </>
           ) : (

@@ -145,7 +145,7 @@ export default function Gas() {
     <div className="bg-[#0a0729] p-6 rounded-xl mt-14 w-96 h-[465px]">
       {!isSettingsMenuOpen ? (
         <>
-          {/* Header */}
+          
           <GasHeader
             isFromTokenMenuOpen={isFromTokenMenuOpen}
             isToTokenMenuOpen={isToTokenMenuOpen}
@@ -156,32 +156,32 @@ export default function Gas() {
 
           {!isFromTokenMenuOpen && !isToTokenMenuOpen ? (
             <>
-              {/* From Section */}
+              
               <GasFromSection
                 selectedFromChain={selectedFromChain}
                 selectedFromCoin={selectedFromCoin}
                 toggleFromTokenMenu={toggleFromTokenMenu}
               />
-              {/* To Section */}
+              
               <GasToSection
                 selectedToChain={selectedToChain}
                 selectedToCoin={selectedToCoin}
                 toggleToTokenMenu={toggleToTokenMenu}
               />
 
-              {/* Amount Input */}
+             
               <GasAmountSection
                 amount={amount}
                 handleAmountChange={handleAmountChange}
                 selectedFromCoin={selectedFromCoin}
               />
 
-              {/* Send Button */}
+             
               <GasButton gasToast={gasToast} />
             </>
           ) : (
             <div className="bg-[#0a0729] p-4 rounded-3xl">
-              {/* Token Selection Menu */}
+              
               <GasTokenSelection
                 chains={chains}
                 coins={coins}

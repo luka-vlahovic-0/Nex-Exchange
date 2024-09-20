@@ -4,7 +4,7 @@ export default function GasTokenSelection({ isFromTokenMenuOpen, chains, selecte
     <div className="space-y-4">
       {isFromTokenMenuOpen ? (
         <>
-          {/* Chain Icons Grid */}
+        
           <div className="grid grid-cols-5 gap-2 mb-4">
             {chains.slice(0, 5).map((chain, index) => (
               <div
@@ -48,7 +48,6 @@ export default function GasTokenSelection({ isFromTokenMenuOpen, chains, selecte
             </div>
           </div>
 
-          {/* Coins List */}
           <div className="scrollable-menu p-2 space-y-2 overflow-auto max-h-40">
             {coins.map((coin, index) => (
               <div
@@ -70,7 +69,7 @@ export default function GasTokenSelection({ isFromTokenMenuOpen, chains, selecte
         </>
       ) : (
         <>
-          {/* Chain Icons Grid 2 */}
+          
           <div className="grid grid-cols-5 gap-2 mt-20">
             {chains.slice(0, 5).map((chain, index) => (
               <div

@@ -97,12 +97,10 @@ export default function Buy() {
 
   return (
     <div className="bg-[#0a0729] p-6 rounded-xl w-96 h-[465px] mt-14 mx-auto relative">
-      {/* Header */}
       {!isSettingsMenuOpen ? (
         <>
           <BuyHeader setIsSettingsMenuOpen={setIsSettingsMenuOpen} />
 
-          {/* Currency and Amount Selection */}
           <BuyCurrencyAmount
             amount={amount}
             handleAmountChange={handleAmountChange}
@@ -111,7 +109,6 @@ export default function Buy() {
             toggleCurrencyMenu={toggleCurrencyMenu}
           />
 
-          {/* Menu for Fiat Currencies */}
           <BuyFiatMenu
             fiatCurrency={fiatCurrency}
             isCurrencyMenuOpen={isCurrencyMenuOpen}
@@ -121,7 +118,6 @@ export default function Buy() {
             toggleCurrencyMenu={toggleCurrencyMenu}
           />
 
-          {/* Chain and Coin Selection */}
           <BuyChainCoin
             chainMenuRef={chainMenuRef}
             chains={chains}
@@ -134,7 +130,6 @@ export default function Buy() {
             toggleChainMenu={toggleChainMenu}
           />
 
-          {/* Payment Method Selection */}
           <BuyPaymentMethod
             isPaymentMethodMenuOpen={isPaymentMethodMenuOpen}
             paymentMethods={paymentMethods}

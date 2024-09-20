@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import Swap from "./components/Swap";
 import Gas from "./components/Gas";
-import Buy from "./components/Buy"; // Importovanje Buy komponente
+import Buy from "./components/Buy"; 
 import { useState } from "react";
 import "./styles.css";
 import Footer from "./components/Footer";

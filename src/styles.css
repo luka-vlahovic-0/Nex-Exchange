@@ -2,29 +2,29 @@
     background: linear-gradient(140deg, #1a0023, #2e0052, #2c003e, #3e0059);
     min-height: 100vh;
     margin: 0;
-    color: #ffffff; /* Postavlja boju teksta na belu radi boljeg kontrasta */
-    font-family: Arial, sans-serif; /* Primer fonta */
+    color: #ffffff; 
+    font-family: Arial, sans-serif; 
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
 }
 
-/* Custom scrollbar styles for dark theme */
+
 .scrollable-menu {
     scrollbar-width: thin;
-    scrollbar-color: #6e4ca1 #272343; /* Thumb and track color */
+    scrollbar-color: #6e4ca1 #272343; 
 }
 
-/* Webkit browsers (Chrome, Safari) */
 .scrollable-menu::-webkit-scrollbar {
     width: 12px;
 }
 
 .scrollable-menu::-webkit-scrollbar-track {
-    background: #272343; /* Dark background for the track */
+    background: #272343; 
 }
 
 .scrollable-menu::-webkit-scrollbar-thumb {
-    background: #6e4ca1; /* Dark color for the scrollbar thumb */
-    border-radius: 6px; /* Rounded edges for the scrollbar thumb */
+    background: #6e4ca1; 
+    border-radius: 6px; 
 }

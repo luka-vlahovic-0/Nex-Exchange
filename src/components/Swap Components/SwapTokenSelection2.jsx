@@ -13,9 +13,7 @@ export default function SwapTokenSelection2({
 }) {
   return (
     <div className="bg-[#0a0729] rounded-3xl">
-      {/* Token Selection Menu */}
       <div className="space-y-4">
-        {/* Chain Icons Grid */}
         <div className="grid grid-cols-5 gap-2 mb-4">
           {chains.slice(0, 5).map((chain, index) => (
             <div
@@ -39,7 +37,6 @@ export default function SwapTokenSelection2({
           ))}
         </div>
 
-        {/* Chains with "+19" Indicator */}
         <div className="grid grid-cols-5 gap-2">
           {chains.slice(5, 9).map((chain, index) => (
             <div
@@ -69,7 +66,6 @@ export default function SwapTokenSelection2({
           </div>
         </div>
 
-        {/* Scrollable Coin List */}
         <div className="scrollable-menu h-60 overflow-y-auto bg-[#0a0729] rounded-xl p-2">
           <div className="flex flex-col space-y-2">
             {coins.map((coin, index) => (

@@ -55,7 +55,7 @@ export default function BuyChainCoin({
             </button>
           </div>
           <div className="scrollable-menu h-96 p-2 overflow-y-auto">
-            {/* Chains section */}
+            
             <div className="mb-6">
               <span className="text-gray-400 text-sm block mb-2">
                 Select Chain
@@ -85,7 +85,7 @@ export default function BuyChainCoin({
               </div>
             </div>
 
-            {/* Coins section */}
+            
             <div>
               <span className="text-gray-400 text-sm block mb-2">
                 Select Coin

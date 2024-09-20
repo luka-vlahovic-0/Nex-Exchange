@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { ArrowLeftRight, Fuel, Wallet, AlignJustify } from "lucide-react";
 import nexraImg from "../assets/nexra.png";
@@ -27,13 +28,13 @@ export default function Navbar({ setShowGas, setShowSwap, setShowBuy }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full flex justify-between items-center p-1 bg-transparent z-10 sm:mb-60">
-      {/* Logo */}
+    <div className="md:fixed top-0 left-0 w-full flex justify-between items-center p-1 bg-transparent z-10 sm:mb-60">
+      
       <div className="flex items-center flex-1">
         <img src={nexraImg} alt="Website logo" className="h-[70px] w-[100px]" />
       </div>
 
-      {/* Buttons */}
+      
       <div className="hidden md:flex justify-center">
         <div className="bg-white/10 p-2 rounded-full flex space-x-16">
           <button
@@ -72,7 +73,7 @@ export default function Navbar({ setShowGas, setShowSwap, setShowBuy }) {
         </div>
       </div>
 
-      {/* Connect Wallet and Dropdown Menu */}
+      
       <div className="flex items-center flex-1 justify-end pr-4 pb-2 text-lg">
         <MetaMaskButton
           removeDefaultStyles={true}
@@ -81,7 +82,7 @@ export default function Navbar({ setShowGas, setShowSwap, setShowBuy }) {
             color: "#FFFFFF",
             padding: "0.5rem 1rem",
             borderRadius: "9999px",
-            whiteSpace: "nowrap", // Prevents text from wrapping to a new line
+            whiteSpace: "nowrap", 
           }}
           text="Connect Wallet"
           icon="no-icon"
@@ -95,7 +96,7 @@ export default function Navbar({ setShowGas, setShowSwap, setShowBuy }) {
           <AlignJustify className="text-white" />
         </button>
 
-        {/* Dropdown Menu */}
+        
         {showDropdown && (
           <div className="absolute right-[20px] top-[83px] bg-[#0a0729] p-4 rounded-3xl flex flex-col space-y-4">
             <button
