@@ -1,3 +1,198 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: #060411;
+  color: #fff;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Animated aurora background                                              */
+/* Only `transform` and `opacity` are animated so everything stays on the  */
+/* GPU compositor — smooth on mobile, no layout or paint work per frame.   */
+/* ---------------------------------------------------------------------- */
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.aurora-violet {
+  width: 90vmax;
+  height: 90vmax;
+  top: -35vmax;
+  left: -25vmax;
+  background: radial-gradient(circle at center, rgba(124, 58, 237, 0.5) 0%, rgba(124, 58, 237, 0.14) 40%, transparent 68%);
+  animation: drift-a 38s ease-in-out infinite alternate;
+}
+
+.aurora-cyan {
+  width: 80vmax;
+  height: 80vmax;
+  bottom: -40vmax;
+  right: -20vmax;
+  background: radial-gradient(circle at center, rgba(34, 211, 238, 0.32) 0%, rgba(34, 211, 238, 0.08) 42%, transparent 70%);
+  animation: drift-b 46s ease-in-out infinite alternate;
+}
+
+.aurora-magenta {
+  width: 70vmax;
+  height: 70vmax;
+  top: 20vh;
+  left: 30vw;
+  background: radial-gradient(circle at center, rgba(217, 70, 239, 0.28) 0%, rgba(217, 70, 239, 0.07) 45%, transparent 70%);
+  animation: drift-c 52s ease-in-out infinite alternate;
+}
+
+.aurora-indigo {
+  width: 60vmax;
+  height: 60vmax;
+  top: 55vh;
+  left: -15vmax;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 70%);
+  animation: drift-d 42s ease-in-out infinite alternate;
+}
+
+/* Energy streams: a bright pulse + a short comet travel along each path.
+   The offset animates by exactly one dasharray period, so the loop is
+   seamless no matter the path length. */
+.flow-pulse {
+  stroke-dasharray: 120 1480;
+  stroke-dashoffset: 0;
+  opacity: 0.85;
+  animation: flow-dash var(--flow-duration, 12s) linear infinite;
+  animation-delay: var(--flow-delay, 0s);
+}
+
+.flow-comet {
+  stroke-dasharray: 34 1566;
+  stroke-dashoffset: 0;
+  opacity: 0.55;
+  animation: flow-dash-comet var(--flow-duration, 12s) linear infinite;
+  animation-delay: var(--flow-delay, 0s);
+}
+
+@keyframes flow-dash {
+  to { stroke-dashoffset: -1600; }
+}
+
+@keyframes flow-dash-comet {
+  to { stroke-dashoffset: -1600; }
+}
+
+@keyframes drift-a {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(12vw, 10vh, 0) scale(1.15); }
+  100% { transform: translate3d(4vw, 18vh, 0) scale(0.95); }
+}
+
+@keyframes drift-b {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-14vw, -8vh, 0) scale(1.2); }
+  100% { transform: translate3d(-6vw, -16vh, 0) scale(1); }
+}
+
+@keyframes drift-c {
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(-10vw, 12vh, 0) scale(1.25) rotate(12deg); }
+  100% { transform: translate3d(8vw, -8vh, 0) scale(0.9) rotate(-8deg); }
+}
+
+@keyframes drift-d {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(16vw, -10vh, 0) scale(1.2); }
+}
+
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  background: #fff;
+  will-change: transform, opacity;
+  animation: twinkle var(--twinkle-duration, 4s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+}
+
+/* pulsating twinkle: stars breathe in size and brightness */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: var(--star-min, 0.1);
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: var(--star-max, 0.7);
+    transform: scale(1.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob,
+  .star,
+  .flow-pulse,
+  .flow-comet {
+    animation: none;
+  }
+}
+
+/* light sweep across claimable mission cards */
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.09) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: shimmer-sweep 2.6s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  60%, 100% { transform: translateX(100%); }
+}
+
+/* ---------------------------------------------------------------------- */
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 92, 246, 0.5) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 9999px;
+}
+
+input[type="text"],
+input[type="number"] {
+  outline: none;
+}
+
+/* Remove number input spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

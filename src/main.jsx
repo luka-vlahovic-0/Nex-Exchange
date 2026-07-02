@@ -2,20 +2,21 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import { MetaMaskUIProvider } from "@metamask/sdk-react-ui";
+import { WalletProvider } from "./context/WalletContext";
+import { ToastProvider } from "./context/ToastContext";
+import { TxProvider } from "./context/TxContext";
+import { ModeProvider } from "./context/ModeContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <MetaMaskUIProvider
-      sdkOptions={{
-        dappMetadata: {
-          name: "Nexra",
-          url: window.location.href,
-        },
-        infuraAPIKey: import.meta.env.VITE_INFURA_API_KEY,
-      }}
-    >
-      <App />
-    </MetaMaskUIProvider>
+    <ModeProvider>
+      <WalletProvider>
+        <ToastProvider>
+          <TxProvider>
+            <App />
+          </TxProvider>
+        </ToastProvider>
+      </WalletProvider>
+    </ModeProvider>
   </StrictMode>
 );

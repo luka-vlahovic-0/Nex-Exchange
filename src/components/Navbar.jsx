@@ -1,128 +1,144 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { ArrowLeftRight, Fuel, Wallet, AlignJustify } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowLeftRight, Landmark, CreditCard, FlaskConical, Sparkles, Trophy } from "lucide-react";
 import nexraImg from "../assets/nexra.png";
-import { MetaMaskButton } from "@metamask/sdk-react-ui";
+import ConnectButton from "./ConnectButton";
+import { useMode } from "../context/ModeContext";
+import { useWallet } from "../context/WalletContext";
+import { chains, chainById } from "../lib/chains";
 
-export default function Navbar({ setShowGas, setShowSwap, setShowBuy }) {
-  const [activeButton, setActiveButton] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false);
+const TABS = [
+  { id: "swap", label: "Swap", icon: ArrowLeftRight },
+  { id: "bridge", label: "Bridge", icon: Landmark },
+  { id: "buy", label: "Buy", icon: CreditCard },
+  { id: "quests", label: "Missions", icon: Trophy },
+];
 
-  const handleButtonClick = (button) => {
-    setActiveButton(button);
-    setShowDropdown(false);
+function TabButtons({ activeTab, setActiveTab, layoutId, framed = false }) {
+  return (
+    <div
+      className={`flex items-center gap-1 ${
+        framed ? "rounded-full border border-white/10 bg-[#120d2e]/80 p-1 backdrop-blur-xl" : ""
+      }`}
+    >
+      {TABS.map(({ id, label, icon: Icon }) => {
+        const active = activeTab === id;
+        return (
+          <button
+            key={id}
+            onClick={() => setActiveTab(id)}
+            className={`relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+              active ? "text-white" : "text-white/55 hover:text-white/85"
+            }`}
+          >
+            {active && (
+              <motion.span
+                layoutId={layoutId}
+                transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-600/80 to-fuchsia-500/80 shadow-glow"
+              />
+            )}
+            <Icon size={15} className="relative z-10" />
+            <span className="relative z-10">{label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
-    if (button === "gas") {
-      setShowGas(true);
-      setShowSwap(false);
-      setShowBuy(false);
-    } else if (button === "exchange") {
-      setShowGas(false);
-      setShowSwap(true);
-      setShowBuy(false);
-    } else if (button === "buy") {
-      setShowGas(false);
-      setShowSwap(false);
-      setShowBuy(true);
+function ModeToggle() {
+  const { mode, setMode } = useMode();
+  const { address, chainId, switchChain } = useWallet();
+  const options = [
+    { id: "demo", label: "Demo", icon: Sparkles },
+    { id: "testnet", label: "Testnet", icon: FlaskConical },
+  ];
+
+  const handleSelect = (id) => {
+    setMode(id);
+    // entering testnet mode on an unsupported network (e.g. mainnet):
+    // prompt the wallet to hop onto Sepolia right away
+    if (id === "testnet" && address && !chainById(chainId)) {
+      switchChain(chains.sepolia).catch(() => {});
     }
   };
 
   return (
-    <div className="md:fixed top-0 left-0 w-full flex justify-between items-center p-1 bg-transparent z-10 sm:mb-60">
-      
-      <div className="flex items-center flex-1">
-        <img src={nexraImg} alt="Website logo" className="h-[70px] w-[100px]" />
-      </div>
-
-      
-      <div className="hidden md:flex justify-center">
-        <div className="bg-white/10 p-2 rounded-full flex space-x-16">
+    <div className="flex items-center rounded-full bg-white/[0.06] p-1">
+      {options.map(({ id, label, icon: Icon }) => {
+        const active = mode === id;
+        return (
           <button
-            onClick={() => handleButtonClick("exchange")}
-            className={`flex text-lg items-center font-semibold text-white px-4 py-2 bg-transparent hover:bg-white/10 rounded-full transition-colors duration-200 ${
-              activeButton === "exchange"
-                ? "bg-white/20"
-                : "bg-transparent hover:bg-white/10"
+            key={id}
+            onClick={() => handleSelect(id)}
+            title={id === "demo" ? "Simulated trades with live prices" : "Real on-chain testnet transactions"}
+            className={`relative flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-semibold transition-colors duration-200 ${
+              active ? "text-white" : "text-white/50 hover:text-white/80"
             }`}
           >
-            <ArrowLeftRight className="mr-2" />
-            Exchange
+            {active && (
+              <motion.span
+                layoutId="mode-pill"
+                transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                className={`absolute inset-0 rounded-full ${
+                  id === "demo" ? "bg-cyan-500/30" : "bg-emerald-500/30"
+                }`}
+              />
+            )}
+            <Icon size={13} className="relative z-10" />
+            <span className="relative z-10 hidden lg:inline">{label}</span>
           </button>
-          <button
-            onClick={() => handleButtonClick("gas")}
-            className={`flex text-lg items-center font-semibold text-white px-4 py-2 bg-transparent hover:bg-white/10 rounded-full transition-colors duration-200 ${
-              activeButton === "gas"
-                ? "bg-white/20"
-                : "bg-transparent hover:bg-white/10"
-            }`}
-          >
-            <Fuel className="mr-2" />
-            Gas
-          </button>
-          <button
-            onClick={() => handleButtonClick("buy")}
-            className={`flex text-lg items-center font-semibold text-white px-4 py-2 bg-transparent hover:bg-white/10 rounded-full transition-colors duration-200 ${
-              activeButton === "buy"
-                ? "bg-white/20"
-                : "bg-transparent hover:bg-white/10"
-            }`}
-          >
-            <Wallet className="mr-2" />
-            Buy
-          </button>
-        </div>
-      </div>
-
-      
-      <div className="flex items-center flex-1 justify-end pr-4 pb-2 text-lg">
-        <MetaMaskButton
-          removeDefaultStyles={true}
-          buttonStyle={{
-            backgroundColor: "#603f91",
-            color: "#FFFFFF",
-            padding: "0.5rem 1rem",
-            borderRadius: "9999px",
-            whiteSpace: "nowrap", 
-          }}
-          text="Connect Wallet"
-          icon="no-icon"
-          textAlign="middle"
-        />
-
-        <button
-          className="ml-4 md:hidden"
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          <AlignJustify className="text-white" />
-        </button>
-
-        
-        {showDropdown && (
-          <div className="absolute right-[20px] top-[83px] bg-[#0a0729] p-4 rounded-3xl flex flex-col space-y-4">
-            <button
-              onClick={() => handleButtonClick("exchange")}
-              className="flex text-lg items-center font-semibold text-white bg-transparent hover:bg-white/10 rounded-full transition-colors duration-200"
-            >
-              <ArrowLeftRight className="mr-2" />
-              Exchange
-            </button>
-            <button
-              onClick={() => handleButtonClick("gas")}
-              className="flex text-lg items-center font-semibold text-white bg-transparent hover:bg-white/10 rounded-full transition-colors duration-200"
-            >
-              <Fuel className="mr-2" />
-              Gas
-            </button>
-            <button
-              onClick={() => handleButtonClick("buy")}
-              className="flex text-lg items-center font-semibold text-white bg-transparent hover:bg-white/10 rounded-full transition-colors duration-200"
-            >
-              <Wallet className="mr-2" />
-              Buy
-            </button>
-          </div>
-        )}
-      </div>
+        );
+      })}
     </div>
+  );
+}
+
+export default function Navbar({ activeTab, setActiveTab }) {
+  return (
+    <>
+      {/* one floating pill, centered — brand · tabs · mode · wallet */}
+      <header className="fixed inset-x-0 top-0 z-40 flex justify-center px-3 pt-3">
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-3 rounded-full border border-white/10 bg-[#120d2e]/75 py-2 pl-5 pr-2 shadow-xl shadow-black/30 backdrop-blur-xl sm:gap-5"
+        >
+          {/* brand */}
+          <div className="flex items-center gap-1.5">
+            <img src={nexraImg} alt="Nex Exchange logo" className="h-8 w-auto object-contain" />
+            <p className="hidden font-display text-base font-bold leading-none tracking-tight text-white xl:block">
+              Nex
+              <span className="bg-gradient-to-r from-violet-400 to-cyan-300 bg-clip-text text-transparent">
+                Exchange
+              </span>
+            </p>
+          </div>
+
+          <span className="hidden h-6 w-px bg-white/10 md:block" />
+
+          {/* tabs (desktop) */}
+          <div className="hidden md:block">
+            <TabButtons activeTab={activeTab} setActiveTab={setActiveTab} layoutId="tab-pill-desktop" />
+          </div>
+
+          <span className="hidden h-6 w-px bg-white/10 md:block" />
+
+          <ModeToggle />
+          <ConnectButton />
+        </motion.div>
+      </header>
+
+      {/* mobile bottom tab bar — app-like navigation on small screens */}
+      <motion.nav
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="fixed bottom-4 left-1/2 z-40 md:hidden"
+        style={{ x: "-50%" }}
+      >
+        <TabButtons activeTab={activeTab} setActiveTab={setActiveTab} layoutId="tab-pill-mobile" framed />
+      </motion.nav>
+    </>
   );
 }
